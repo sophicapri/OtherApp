@@ -9,11 +9,11 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.socap.notekeeper.NoteKeeperProviderContract.Courses;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -69,8 +69,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Uri uri = Uri.parse("content://com.socap.notekeeper.provider");
-        String[] columns = {"_id", "course_title", "course_id"};
+        Uri uri = Courses.INSTANCE.getCONTENT_URI();
+        String[] columns = {Courses.INSTANCE.get_ID(),
+                Courses.INSTANCE.getCOLUMN_COURSE_TITLE(),
+                Courses.INSTANCE.getCOLUMN_COURSE_ID()};
 
         return new CursorLoader(this, uri, columns, null, null, "course_title");
     }
